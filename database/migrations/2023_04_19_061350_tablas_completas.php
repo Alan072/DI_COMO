@@ -59,6 +59,7 @@ return new class extends Migration
             $table->string('direccion');
             $table->string('pais');
             $table->string('correo');
+            $table->string('contrasena');
             $table->string('telefono_celular');
             $table->string('telefono_fijo');
             $table->integer('rol_desempena')->unsigned();
