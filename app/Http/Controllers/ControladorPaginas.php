@@ -13,7 +13,6 @@ class ControladorPaginas extends Controller
         return view('home');
     }
 
-<<<<<<< HEAD
     public function fproducto()
     {
         return view('productos');
@@ -33,7 +32,14 @@ class ControladorPaginas extends Controller
     {
         return view('empleado_admin');
     }
-=======
-    
->>>>>>> 03e90bf0e207098ae8596c456fe72bb1ed3302bc
+
+    public function fubicacion_admin()
+    {
+        return view('ubicacion_admin');
+    }
+
+    public function falmacen_admin()
+    {
+        return view('almacen_admin');
+    }
 }

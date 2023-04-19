@@ -22,6 +22,9 @@ Route::get('/',[ControladorPaginas::class,'fhome']) ->name('Jhome');
 Route::get('/proveedor_admin',[ControladorPaginas::class,'fproveedor_admin']) ->name('Jproveedor_admin');
 Route::get('/cliente_admin',[ControladorPaginas::class,'fcliente_admin']) ->name('Jcliente_admin');
 Route::get('/empleado_admin',[ControladorPaginas::class,'fempleado_admin']) ->name('Jempleado_admin');
+Route::get('/ubicacion_admin',[ControladorPaginas::class,'fubicacion_admin']) ->name('Jubicacion_admin');
+Route::get('/almacen_admin',[ControladorPaginas::class,'falmacen_admin']) ->name('Jalmacen_admin');
+
 
 Route::get('/entrada', function () {return view('entrada');});
 
