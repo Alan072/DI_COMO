@@ -30,8 +30,12 @@ Route::get('/salida', function () {return view('salida');});
 Route::get('/admin', function () {return view('admin');});
 
 /*Rutas para productos */
-Route::get('/productos',[ControladorPaginas::class,'fproducto']) ->name('Jproducto');
-Route::post('/productos/create',[Controlador_Productos::class,'store']) ->name('insertar_producto');
+Route::get('/productos',[Controlador_Productos::class,'fproducto']) ->name('Jproducto');
+Route::post('/productos/create', [Controlador_Productos::class, 'store'])->name('insertar_producto');
+Route::get('/productos_index', [Controlador_Productos::class, 'index'])->name('mostrar_producto');
+Route::get('/productos/{id_producto}/edit', [Controlador_Productos::class, 'edit'])->name('editar_producto');
+Route::put('/productos/{id_producto}',[Controlador_Productos::class,'update'])->name('update_producto');
+Route::delete('/productos/{id_producto}',[Controlador_Productos::class, 'destroy'])->name('eliminar_producto');
 
 
 Route::get('/tareas', function () {return view('tareas');});
