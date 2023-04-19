@@ -1,7 +1,5 @@
 @extends('plantilla')
 @section('contenido')
-
-
 <div class="bg-white rounded-lg shadow p-6">
     <form method="post" action="{{ route('update_producto', $producto->id_producto) }}">
         @csrf
@@ -25,7 +23,7 @@
                     <option value="" disabled selected>Selecciona el Almacen</option>
                     <?php
                     // Realizar la conexión a la base de datos
-                    $conexion = mysqli_connect("localhost:3307", "root", "", "laravel");
+                    $conexion = mysqli_connect("localhost:3306", "root", "", "laravel");
                 
                     // Verificar la conexión
                     if (!$conexion) {
@@ -62,7 +60,7 @@
                     <option value="" disabled selected>Selecciona la ubicacion</option>
                     <?php
                     // Realizar la conexión a la base de datos
-                    $conexion = mysqli_connect("localhost:3307", "root", "", "laravel");
+                    $conexion = mysqli_connect("localhost:3306", "root", "", "laravel");
                 
                     // Verificar la conexión
                     if (!$conexion) {
