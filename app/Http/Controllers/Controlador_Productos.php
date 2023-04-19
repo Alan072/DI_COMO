@@ -17,8 +17,17 @@ class Controlador_Productos extends Controller
     public function index()
     {
         //
-        $producto = DB::table('producto')->paginate(5); // Obtener los productos con paginación
+       // $producto = DB::table('producto')->paginate(5); // Obtener los productos con paginación
+       // return view('tbproductos', ['producto' => $producto]);
+
+        $producto = DB::table('producto')
+            ->join('almacen', 'producto.almacen_id', '=', 'almacen.id_almacen')
+            ->join('ubicacion', 'producto.ubicacion_id', '=', 'ubicacion.id_ubicacion')
+            ->select('producto.*', 'almacen.nombre_almacen as nombre_almacen', 'ubicacion.pasillo as nombre_pasillo')
+            ->paginate(5);
         return view('tbproductos', ['producto' => $producto]);
+
+
     }
 
     /**
@@ -38,6 +47,9 @@ class Controlador_Productos extends Controller
             DB::table('producto')->insert([
                 "nombre_producto"=>$req->input('nombre_producto'),
                 "descripcion"=>$req->input('descripcion'),
+                "precio"=>$req->input('precio'),
+                "ubicacion_id"=>$req->input('ubicacion_id'),
+                "almacen_id"=>$req->input('almacen_id'),
                 "created_at"=>Carbon::now(),
                 "updated_at"=>Carbon::now(),
             ]);
@@ -75,6 +87,9 @@ class Controlador_Productos extends Controller
         DB::table('producto')->where('id_producto', $id_producto)->update([
             "nombre_producto"=>$req->input('nombre_producto'),
             "descripcion"=>$req->input('descripcion'),
+            "precio"=>$req->input('precio'),
+            "ubicacion_id"=>$req->input('ubicacion_id'),
+            "almacen_id"=>$req->input('almacen_id'),
             "updated_at"=>Carbon::now(),
         ]);
         return redirect('/productos_index')->with('mensaje','Tu recuerdo se ha actualizado');

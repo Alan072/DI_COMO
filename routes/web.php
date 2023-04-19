@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ControladorPaginas;
 use App\Http\Controllers\Controlador_Productos;
+use App\Http\Controllers\Controlador_Entrada;
+
 
 
 /*
@@ -23,7 +25,11 @@ Route::get('/proveedor_admin',[ControladorPaginas::class,'fproveedor_admin']) ->
 Route::get('/cliente_admin',[ControladorPaginas::class,'fcliente_admin']) ->name('Jcliente_admin');
 Route::get('/empleado_admin',[ControladorPaginas::class,'fempleado_admin']) ->name('Jempleado_admin');
 
+/*Rutas Entrada */
 Route::get('/entrada', function () {return view('entrada');});
+Route::post('/entrada/create', [Controlador_Entrada::class, 'store'])->name('insertar_entrada');
+
+
 
 Route::get('/salida', function () {return view('salida');});
 

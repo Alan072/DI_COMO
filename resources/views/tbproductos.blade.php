@@ -14,6 +14,18 @@
                 <th scope="col" class="px-6 py-3">
                     Descripcion
                 </th>
+                <th scope="col" class="px-6 py-3">
+                    Stock
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Precio
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Ubicacion
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Almacen
+                </th>
                 
                 <th scope="col" class="px-6 py-3">
                     Aciones
@@ -31,11 +43,22 @@
                 </th>
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {{$item->nombre_producto}}
-
                 </th>
                 <td class="px-6 py-4">
                     {{$item->descripcion}}
                 </td>
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{$item->stock}}
+                </th>
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{$item->precio}}
+                </th>
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{$item->nombre_pasillo}}
+                </th>
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{$item->nombre_almacen}}
+                </th>
                 
                 <td class="flex items-center px-6 py-4 space-x-3">
                     <a href="{{ route('editar_producto', $item->id_producto) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
