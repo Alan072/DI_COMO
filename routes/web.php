@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ControladorPaginas;
+use App\Http\Controllers\Controlador_Productos;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +24,10 @@ Route::get('/salida', function () {return view('salida');});
 
 Route::get('/admin', function () {return view('admin');});
 
-Route::get('/productos', function () {return view('productos');});
+/*Rutas para productos */
+Route::get('/productos',[ControladorPaginas::class,'fproducto']) ->name('Jproducto');
+Route::post('/productos/create',[Controlador_Productos::class,'store']) ->name('insertar_producto');
+
 
 Route::get('/tareas', function () {return view('tareas');});
 

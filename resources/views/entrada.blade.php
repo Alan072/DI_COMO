@@ -1,2 +1,8 @@
+@extends('plantilla')
+@section('contenido')
 
-<a href="{{ url()->previous() }}" class="btn-back">&larr; Regresar</a>
+
+
+
+
+@stop

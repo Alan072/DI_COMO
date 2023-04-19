@@ -32,20 +32,30 @@ return new class extends Migration
             $table->timestamps();
         });
         
-        Schema::create('almacen_producto', function (Blueprint $table) {
+        Schema::create('almacen', function (Blueprint $table) {
             $table->increments('id_almacen');
+            $table->string('nombre_almacen');
+            $table->timestamps();
+        });
+
+        Schema::create('stock_producto', function (Blueprint $table) {
+            $table->increments('id_stock_producto');
             $table->integer('stock');
             $table->float('precio');
             $table->integer('producto_id')->unsigned();
             $table->integer('ubicacion_id')->unsigned();
+            $table->integer('almacen_id')->unsigned();
             $table->foreign('producto_id')->references('id_producto')->on('producto')->onDelete('cascade');
             $table->foreign('ubicacion_id')->references('id_ubicacion')->on('ubicacion')->onDelete('cascade');
+            $table->foreign('almacen_id')->references('id_almacen')->on('almacen')->onDelete('cascade');
+
             $table->timestamps();
         });
         
         Schema::create('entrada', function (Blueprint $table) {
             $table->increments('id_entrada');
             $table->integer('producto_id')->unsigned();
+            $table->integer('cantidad')->unsigned();
             $table->foreign('producto_id')->references('id_producto')->on('producto')->onDelete('cascade');
             $table->timestamps();
         });
@@ -67,6 +77,7 @@ return new class extends Migration
         Schema::create('salida', function (Blueprint $table) {
             $table->increments('id_salida');
             $table->integer('producto_id')->unsigned();
+            $table->integer('cantidad')->unsigned();
             $table->integer('usuario_id')->unsigned();
             $table->foreign('producto_id')->references('id_producto')->on('producto')->onDelete('cascade');
             $table->foreign('usuario_id')->references('id_usuario')->on('tipo_usuario')->onDelete('cascade');
