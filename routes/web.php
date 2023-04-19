@@ -15,3 +15,15 @@ use App\Http\Controllers\ControladorPaginas;
 */
 
 Route::get('/',[ControladorPaginas::class,'fhome']) ->name('Jhome');
+
+Route::get('/entrada', function () {return view('entrada');});
+
+Route::get('/salida', function () {return view('salida');});
+
+Route::get('/admin', function () {return view('admin');});
+
+Route::get('/productos', function () {return view('productos');});
+
+Route::get('/tareas', function () {return view('tareas');});
+
+Route::get('/inventario', function () {return view('inventario');});
