@@ -13,8 +13,5 @@ class ControladorPaginas extends Controller
      return view('home');
     }
 
-    public function fproducto()
-    {
-     return view('productos');
-    }
+    
 }
