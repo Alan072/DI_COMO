@@ -32,4 +32,14 @@ class ControladorPaginas extends Controller
     {
         return view('empleado_admin');
     }
+
+    public function fubicacion_admin()
+    {
+        return view('ubicacion_admin');
+    }
+
+    public function falmacen_admin()
+    {
+        return view('almacen_admin');
+    }
 }
