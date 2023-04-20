@@ -22,22 +22,18 @@
     </div>
     <!--Aqui va el contenido-->
     <div class="bg-white rounded-lg shadow p-6" style="width: 50%; margin-left: 20px;">
-        <form method="post" action="{{ route('CInsertado') }}">
+        <form method="post" action="{{ route('update_ubicacion', $ubicacion->id_ubicacion) }}">
             @csrf
+             {!! method_field('PUT')!!}    @csrf
             <label >Pasillo</label>
-            <input type="text" name="pasillo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="sector 1" required>
+            <input type="text" name="pasillo" value="{{$ubicacion->pasillo}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="sector 1" required>
             <label >Rack</label><br>
-            <input type="text" name="rack" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="1" required>
+            <input type="text" name="rack" value="{{$ubicacion->racks}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="1" required>
             <br><br>
             <div>
-                <script>
-                    function mostrarAlerta() {
-                      alert("Registro ingresado exitosamente");
-                    }
-                  </script>
-            <button onclick="mostrarAlerta()" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Aceptar</button>
+                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Aceptar</button>
             <a class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" href="/ubicacion_index">
-                Consultar Ubicaciones
+                Regresar
             </a>
             </div></form>
     </div>

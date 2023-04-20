@@ -44,8 +44,10 @@ Route::delete('/almacen/{id_almacen}',[Controlador_Almacen::class, 'destroy'])->
 #Rutas de ubicación
 Route::get('/ubicacion_admin',[ControladorPaginas::class,'fubicacion_admin']) ->name('Jubicacion_admin');
 Route::post('/ubicacion', [Controlador_Ubicacion::class, 'store'])->name('CInsertado');
-
-
+Route::get('/ubicacion_index', [Controlador_Ubicacion::class, 'index'])->name('mostrar_ubicacion');
+Route::get('/ubicacion/{id_ubicacion}/edit', [Controlador_Ubicacion::class, 'edit'])->name('editar_ubicacion');
+Route::put('/ubicacion/{id_ubicacion}',[Controlador_Ubicacion::class,'update'])->name('update_ubicacion');
+Route::delete('/ubicacion/{id_ubicacion}',[Controlador_Ubicacion::class, 'destroy'])->name('eliminar_ubicacion');
 
 
 /*Rutas Entrada */
