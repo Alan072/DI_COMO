@@ -8,6 +8,7 @@ use App\Http\Controllers\Controlador_Salida;
 use App\Http\Controllers\Controlador_Personal;
 use App\Http\Controllers\Controlador_Ubicacion;
 use App\Http\Controllers\Controlador_Almacen;
+use App\Http\Controllers\Controlador_Tareas;
 
 
 
@@ -73,6 +74,6 @@ Route::delete('/empleado/{id_usuario}',[Controlador_Personal::class, 'destroy'])
 /*Inventario */
 Route::get('/inventario/index', [Controlador_Productos::class, 'inventario'])->name('mostrar_inventario');
 
-
+#Rutas para tareas
 Route::get('/tareas', function () {return view('tareas');});
-
+Route::post('/tarea', [Controlador_Tareas::class, 'store'])->name('CTarea_insertada');

@@ -74,7 +74,7 @@
         </tbody>
     </table>
     <div class="flex justify-center">
-        {!! $entrada->links() !!}
+        {!! $tipo_usuario->links() !!}
     </div>
 </div>
 <script>
