@@ -74,7 +74,7 @@
         </tbody>
     </table>
     <div class="flex justify-center">
-        {!! $entrada->links() !!}
+        {!! $producto->links() !!}
     </div>
 </div>
 <script>
