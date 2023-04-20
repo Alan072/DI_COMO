@@ -73,6 +73,9 @@
             @endforeach
         </tbody>
     </table>
+    <div class="flex justify-center">
+        {!! $entrada->links() !!}
+    </div>
 </div>
 <script>
     function confirmarEliminacion() {

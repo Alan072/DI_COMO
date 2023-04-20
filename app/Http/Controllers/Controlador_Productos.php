@@ -27,6 +27,19 @@ class Controlador_Productos extends Controller
             ->paginate(5);
         return view('tbproductos', ['producto' => $producto]);
 
+    }
+    public function inventario()
+    {
+        //
+       // $producto = DB::table('producto')->paginate(5); // Obtener los productos con paginación
+       // return view('tbproductos', ['producto' => $producto]);
+
+        $producto = DB::table('producto')
+            ->join('almacen', 'producto.almacen_id', '=', 'almacen.id_almacen')
+            ->join('ubicacion', 'producto.ubicacion_id', '=', 'ubicacion.id_ubicacion')
+            ->select('producto.*', 'almacen.nombre_almacen as nombre_almacen', 'ubicacion.pasillo as nombre_pasillo')
+            ->paginate(5);
+        return view('inventario', ['producto' => $producto]);
 
     }
 

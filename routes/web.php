@@ -39,7 +39,7 @@ Route::get('/generar_pdf/{id_entrada}', [Controlador_Entrada::class, 'generarPDF
 Route::get('/salida', function () {return view('salida');});
 Route::post('/salida/create', [Controlador_Salida::class, 'store'])->name('insertar_salida');
 Route::get('/salida_index', [Controlador_Salida::class, 'index'])->name('mostrar_salida');
-Route::get('/generar_pdf/{id_salida}', [Controlador_Salida::class, 'generar_salida'])->name('generar_pdf_salida');
+Route::get('/generar_pdf_salida/{id_salida}', [Controlador_Salida::class, 'generar_salida'])->name('generar_pdf_salida');
 
 
 Route::get('/admin', function () {return view('admin');});
@@ -55,8 +55,14 @@ Route::delete('/productos/{id_producto}',[Controlador_Productos::class, 'destroy
 /* Rutas para personal */
 Route::get('/empleado_admin',[ControladorPaginas::class,'fempleado_admin']) ->name('Jempleado_admin');
 Route::post('/empleado_admin/create', [Controlador_Personal::class, 'store'])->name('insertar_personal');
+Route::get('/empleado_index', [Controlador_Personal::class, 'index'])->name('mostrar_personal');
+Route::get('/empleado/{id_usuario}/edit', [Controlador_Personal::class, 'edit'])->name('editar_empleado');
+Route::put('/empleado/{id_usuario}',[Controlador_Personal::class,'update'])->name('update_empleado');
+Route::delete('/empleado/{id_usuario}',[Controlador_Personal::class, 'destroy'])->name('eliminar_empleado');
+
+/*Inventario */
+Route::get('/inventario/index', [Controlador_Productos::class, 'inventario'])->name('mostrar_inventario');
 
 
 Route::get('/tareas', function () {return view('tareas');});
 
-Route::get('/inventario', function () {return view('inventario');});
