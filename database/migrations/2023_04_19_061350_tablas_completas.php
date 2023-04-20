@@ -55,6 +55,8 @@ return new class extends Migration
         Schema::create('tipo_usuario', function (Blueprint $table) {
             $table->increments('id_usuario');
             $table->string('nombre');
+            $table->string('apellido_paterno');
+            $table->string('apellido_materno');
             $table->string('empresa');
             $table->string('direccion');
             $table->string('pais');
@@ -71,9 +73,7 @@ return new class extends Migration
             $table->increments('id_salida');
             $table->integer('producto_id')->unsigned();
             $table->integer('cantidad')->unsigned();
-            $table->integer('usuario_id')->unsigned();
             $table->foreign('producto_id')->references('id_producto')->on('producto')->onDelete('cascade');
-            $table->foreign('usuario_id')->references('id_usuario')->on('tipo_usuario')->onDelete('cascade');
             $table->timestamps();
         });
         
@@ -81,11 +81,13 @@ return new class extends Migration
             $table->increments('id_tarea');
             $table->text('descripcion');
             $table->integer('salida_id')->unsigned();
+            $table->integer('usuario_id')->unsigned();
             $table->integer('ubicacion_id')->unsigned();
             $table->integer('entrada_id')->unsigned();
             $table->foreign('salida_id')->references('id_salida')->on('salida')->onDelete('cascade');
             $table->foreign('ubicacion_id')->references('id_ubicacion')->on('ubicacion')->onDelete('cascade');
             $table->foreign('entrada_id')->references('id_entrada')->on('entrada')->onDelete('cascade');
+            $table->foreign('usuario_id')->references('id_usuario')->on('tipo_usuario')->onDelete('cascade');
             $table->timestamps();
         });
 
