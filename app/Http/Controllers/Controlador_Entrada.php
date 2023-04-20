@@ -23,7 +23,6 @@ class Controlador_Entrada extends Controller
             ->paginate(5);
             return view('tbentrada', ['entrada' => $entrada]);
 
-
     }
 
     public function generarPDF($id_entrada)

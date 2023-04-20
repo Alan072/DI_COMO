@@ -15,7 +15,7 @@ class Controlador_Salida extends Controller
     {
         //
         $salida = DB::table('salida')
-            ->join('producto', 'entrada.producto_id', '=', 'producto.id_producto')
+            ->join('producto', 'salida.producto_id', '=', 'producto.id_producto')
             ->join('almacen', 'producto.almacen_id', '=', 'almacen.id_almacen')
             ->join('ubicacion', 'producto.ubicacion_id', '=', 'ubicacion.id_ubicacion')
             ->select('salida.*', 'producto.nombre_producto as nombre_producto', 'almacen.nombre_almacen as nombre_almacen', 'ubicacion.pasillo as nombre_pasillo')

@@ -42,6 +42,9 @@
             </tr>
             @endforeach
         </tbody>
+        <div class="flex justify-center">
+            {!! $salida->links() !!}
+        </div>
     </table>
 </div>
 
