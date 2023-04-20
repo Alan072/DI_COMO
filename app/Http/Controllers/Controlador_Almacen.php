@@ -13,7 +13,10 @@ class Controlador_Almacen extends Controller
      */
     public function index()
     {
-        $consultaConsultas= DB::table('almacen')->get();
+        $almacen= DB::table('almacen')
+        ->paginate(5);
+        return view('tbalmacen', ['almacen' => $almacen]);
+
     }
 
     /**
@@ -48,24 +51,34 @@ class Controlador_Almacen extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id_almacen)
     {
         //
+        $almacen = DB::table('almacen')->where('id_almacen', $id_almacen)->first();
+        return view ('editar_almacen', ['almacen' => $almacen]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $req, string $id_almacen)
     {
         //
+        DB::table('almacen')->where('id_almacen', $id_almacen)->update([
+            "nombre_almacen"=>$req->input('nombrealmacen'),
+            "created_at"=> Carbon::now(),
+            "updated_at"=>Carbon::now(),
+        ]);
+        return redirect('/almacen_index')->with('mensaje','Tu recuerdo se ha guardado en la BD');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id_almacen)
     {
         //
+        DB::table('almacen')->where('id_almacen',$id_almacen)->delete();
+        return redirect('/almacen_index')->with('mensaje',"Recuerdo borrado");
     }
 }
