@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ControladorPaginas;
 use App\Http\Controllers\Controlador_Productos;
+use App\Http\Controllers\Controlador_Ubicacion;
 use App\Http\Controllers\Controlador_Entrada;
 
 
@@ -46,6 +47,9 @@ Route::get('/productos/{id_producto}/edit', [Controlador_Productos::class, 'edit
 Route::put('/productos/{id_producto}',[Controlador_Productos::class,'update'])->name('update_producto');
 Route::delete('/productos/{id_producto}',[Controlador_Productos::class, 'destroy'])->name('eliminar_producto');
 
+/*Rutas para ubicacion */
+Route::get('/ubicacion_admin_index', [Controlador_Ubicacion::class, 'store'])->name('mostrar_ubicacion');
+Route::post('/ubicacion_admin', [Controlador_Ubicacion::class, 'store'])->name('insertar_ubicacion');
 
 Route::get('/tareas', function () {return view('tareas');});
 
