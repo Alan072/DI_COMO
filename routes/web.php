@@ -6,6 +6,8 @@ use App\Http\Controllers\Controlador_Productos;
 use App\Http\Controllers\Controlador_Entrada;
 use App\Http\Controllers\Controlador_Salida;
 use App\Http\Controllers\Controlador_Personal;
+use App\Http\Controllers\Controlador_Ubicacion;
+use App\Http\Controllers\Controlador_Almacen;
 
 
 
@@ -25,8 +27,16 @@ Route::get('/',[ControladorPaginas::class,'fhome']) ->name('Jhome');
 
 #rutas del admin
 Route::get('/empleado_admin',[ControladorPaginas::class,'fempleado_admin']) ->name('Jempleado_admin');
-Route::get('/ubicacion_admin',[ControladorPaginas::class,'fubicacion_admin']) ->name('Jubicacion_admin');
+
+#Rutas de almacen
 Route::get('/almacen_admin',[ControladorPaginas::class,'falmacen_admin']) ->name('Jalmacen_admin');
+Route::post('/almacen', [Controlador_Almacen::class, 'store'])->name('CInsertadoal');
+
+#Rutas de ubicación
+Route::get('/ubicacion_admin',[ControladorPaginas::class,'fubicacion_admin']) ->name('Jubicacion_admin');
+Route::post('/ubicacion', [Controlador_Ubicacion::class, 'store'])->name('CInsertado');
+
+
 
 
 /*Rutas Entrada */
