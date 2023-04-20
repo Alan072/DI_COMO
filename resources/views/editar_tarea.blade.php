@@ -2,12 +2,13 @@
 @section('contenido')
 <div class="w-full max-w-xl p-4 bg-white mx-auto" style="max-width: 80%;">
     <div class="grid gap-6 mb-6 md:grid-cols-2">
-        <form method="post" action="{{ route('CTarea_insertada') }}">
+        <form method="post" action="{{ route('update_tarea', $tarea->id_tarea) }}">
             @csrf
+             {!! method_field('PUT')!!}
             <div class="grid gap-6 mb-6 md:grid-cols-2">
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descripción</label>
-                    <textarea name="descripcion" style="resize: none;" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="XXXXXXXX" required></textarea>
+                    <textarea name="descripcion"  style="resize: none;" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>{{$tarea->descripcion}}</textarea>
                 </div>
                 <div>
                     <label for="nombre_producto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Seleccione la salida</label>
@@ -151,7 +152,7 @@
                 <div>
                     <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Aceptar</button>
                 <a class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" href="/tarea_index">
-                    Consultar Tareas
+                    Regresar
                 </a>
                 </div>
             </div>
@@ -160,19 +161,4 @@
       </form>
     </div>
 </div>
-<script>
-    const selectSalida = document.getElementById("idsalida");
-    const selectEntrada = document.getElementById("identrada");
-    
-    selectSalida.addEventListener("change", function() {
-        selectEntrada.disabled = true;
-        selectSalida.disabled = false;
-    });
-    
-    selectEntrada.addEventListener("change", function() {
-        selectSalida.disabled = true;
-        selectEntrada.disabled = false;
-    });
-</script>
-
 @stop

@@ -13,7 +13,13 @@ class Controlador_Tareas extends Controller
      */
     public function index()
     {
-        $consultaConsultas= DB::table('tarea')->get();
+        $tarea = DB::table('tarea')
+        ->join('tipo_usuario', 'tarea.usuario_id', '=', 'tipo_usuario.id_usuario')
+        ->join('ubicacion', 'tarea.ubicacion_id', '=', 'ubicacion.id_ubicacion')
+        ->select('tarea.id_tarea', 'tarea.descripcion', 'tarea.salida_id','tarea.entrada_id', 'tipo_usuario.nombre', 'ubicacion.pasillo', 'ubicacion.racks')
+        ->paginate(5);
+        return view('tbtareas', ['tarea' => $tarea]);
+
     }
 
     /**
@@ -52,24 +58,39 @@ class Controlador_Tareas extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id_tarea)
     {
         //
+        $tarea = DB::table('tarea')->where('id_tarea', $id_tarea)->first();
+        return view ('editar_tarea', ['tarea' => $tarea]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $req, string $id_tarea)
     {
         //
+        DB::table('tarea')->where('id_tarea', $id_tarea)->update([
+            "descripcion"=>$req->input('descripcion'),
+            "salida_id"=>$req->input('idsalida'),
+            "usuario_id"=>$req->input('idusuario'),
+            "ubicacion_id"=>$req->input('idubicacion'),
+            "entrada_id"=>$req->input('identrada'),
+            "updated_at"=>Carbon::now(),
+        ]);
+        return redirect('/tarea_index')->with('mensaje','Tu recuerdo se ha actualizado');
+
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id_tarea)
     {
         //
+        DB::table('tarea')->where('id_tarea',$id_tarea)->delete();
+        return redirect('/tarea_index')->with('mensaje',"Recuerdo borrado");
     }
 }

@@ -9,6 +9,8 @@ use App\Http\Controllers\Controlador_Personal;
 use App\Http\Controllers\Controlador_Ubicacion;
 use App\Http\Controllers\Controlador_Almacen;
 use App\Http\Controllers\Controlador_Tareas;
+use App\Http\Controllers\LoginController;
+
 
 
 
@@ -24,7 +26,7 @@ use App\Http\Controllers\Controlador_Tareas;
 |
 */
 
-Route::get('/',[ControladorPaginas::class,'fhome']) ->name('Jhome');
+Route::get('/home',[ControladorPaginas::class,'fhome']) ->name('Jhome');
 
 #rutas del admin
 Route::get('/empleado_admin',[ControladorPaginas::class,'fempleado_admin']) ->name('Jempleado_admin');
@@ -83,3 +85,14 @@ Route::get('/inventario/index', [Controlador_Productos::class, 'inventario'])->n
 #Rutas para tareas
 Route::get('/tareas', function () {return view('tareas');});
 Route::post('/tarea', [Controlador_Tareas::class, 'store'])->name('CTarea_insertada');
+Route::get('/tarea_index', [Controlador_Tareas::class, 'index'])->name('tarea_index');
+Route::get('/tarea/{id_tarea}/edit', [Controlador_Tareas::class, 'edit'])->name('editar_tarea');
+Route::put('/tarea/{id_tarea}',[Controlador_Tareas::class,'update'])->name('update_tarea');
+Route::delete('/tarea/{id_tarea}',[Controlador_Tareas::class, 'destroy'])->name('eliminar_tarea');
+
+
+/*Login */
+Route::get('/',[ControladorPaginas::class,'flogin']) ->name('Jlogin');
+Route::post('/como', [LoginController::class, 'login']);
+
+Route::get('/tarea_montacargas', function () {return view('vista_montacargas');});
