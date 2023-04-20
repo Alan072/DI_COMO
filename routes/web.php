@@ -32,6 +32,12 @@ Route::get('/empleado_admin',[ControladorPaginas::class,'fempleado_admin']) ->na
 #Rutas de almacen
 Route::get('/almacen_admin',[ControladorPaginas::class,'falmacen_admin']) ->name('Jalmacen_admin');
 Route::post('/almacen', [Controlador_Almacen::class, 'store'])->name('CInsertadoal');
+Route::get('/almacen_index', [Controlador_Almacen::class, 'index'])->name('mostrar_almacen');
+Route::get('/almacen/{id_almacen}/edit', [Controlador_Almacen::class, 'edit'])->name('editar_almacen');
+Route::put('/almacen/{id_almacen}',[Controlador_Almacen::class,'update'])->name('update_almacen');
+Route::delete('/almacen/{id_almacen}',[Controlador_Almacen::class, 'destroy'])->name('eliminar_almacen');
+
+
 
 #Rutas de ubicación
 Route::get('/ubicacion_admin',[ControladorPaginas::class,'fubicacion_admin']) ->name('Jubicacion_admin');
