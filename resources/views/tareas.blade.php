@@ -57,7 +57,7 @@
                     }
                 
                     // Realizar la consulta a la base de datos
-                    $query = "SELECT * FROM tipo_usuario";
+                    $query = "SELECT * FROM tipo_usuario where rol_desempena = 2";
 
                     $resultado = mysqli_query($conexion, $query);
                 
@@ -155,7 +155,7 @@
                         }
                       </script>
                     <button onclick="mostrarAlerta()" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Aceptar</button>
-                <a class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" href="/tb_reportes">
+                <a class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" href="/tarea_index">
                     Consultar Tareas
                 </a>
                 </div>

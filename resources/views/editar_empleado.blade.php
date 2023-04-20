@@ -61,7 +61,7 @@
       <option value=""  disabled selected>Selecciona el puesto</option>
       <?php
         // Realizar la conexión a la base de datos
-        $conexion = mysqli_connect("localhost:3306", "root", "", "laravel");
+        $conexion = mysqli_connect("localhost:3307", "root", "", "laravel");
   
         // Verificar la conexión
         if (!$conexion) {
