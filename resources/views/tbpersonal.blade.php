@@ -9,22 +9,22 @@
                         ID
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Nombre del Producto
+                        Nombre
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Descripcion
+                        Apellido Paterno
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Stock
+                        Apellido Materno
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Precio
+                        Puesto
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Ubicacion
+                        Telefono Celular
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Almacen
+                        Correo
                     </th>
 
                     <th scope="col" class="px-6 py-3">
@@ -33,38 +33,38 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($producto as $item)
+                @foreach ($tipo_usuario as $item)
                     <tr
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $item->id_producto }}
+                            {{ $item->id_usuario }}
 
                         </th>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $item->nombre_producto }}
+                            {{ $item->nombre }}
                         </th>
                         <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $item->descripcion }}
+                            {{ $item->apellido_paterno }}
                         </td>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $item->stock }}
+                            {{ $item->apellido_materno }}
                         </th>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $item->precio }}
+                            {{ $item->nombre_rol }}
                         </th>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $item->nombre_pasillo }}
+                            {{ $item->telefono_celular }}
                         </th>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $item->nombre_almacen }}
+                            {{ $item->correo }}
                         </th>
 
                         <td class="flex items-center px-6 py-4 space-x-3">
-                            <a href="{{ route('editar_producto', $item->id_producto) }}"
+                            <a href="{{ route('editar_empleado', $item->id_usuario) }}"
                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
                             <form id="eliminar-producto"
-                                action="{{ route('eliminar_producto', ['id_producto' => $item->id_producto]) }}"
+                                action="{{ route('eliminar_empleado', ['id_usuario' => $item->id_usuario]) }}"
                                 method="POST" class="inline-block">
                                 @csrf
                                 @method('DELETE')
@@ -78,24 +78,20 @@
             </tbody>
         </table>
         <div class="flex justify-center">
-            {!! $producto->links() !!}
+            {!! $tipo_usuario->links() !!}
         </div>
     </div>
     <script>
         function confirmarEliminacion() {
-            if (confirm('¿Está seguro de que desea eliminar este producto?')) {
+            if (confirm('¿Está seguro de que desea eliminar este empleado?')) {
                 document.getElementById('eliminar-producto').submit();
             }
         }
     </script>
     <div class="my-12">
         <a class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mb-4"
-            href="/productos">
+            href="/empleado_admin">
             Regresar
-        </a>
-        <a class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-4"
-            href="{{ route('generar_pdf_productos') }}">
-            Descargar PDF Productos
         </a>
     </div>
 @stop

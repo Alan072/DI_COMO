@@ -89,12 +89,11 @@
         </svg>
       </center>
       <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Inicio de Sesión</h5>
-      <form action="#">
-        @csrf <!-- incluir el token CSRF para protección contra ataques de falsificación de solicitudes entre sitios -->
-
+      <form action="{{ url('/como') }}" method="POST">
+        @csrf 
         <div class="form-floating">
           <label for="floatingInput">No. Empleado</label><br>
-          <input type="number" placeholder="No. Empleado" name="Matricula" required >
+          <input type="number" placeholder="No. Empleado" name="id_usuario" required >
           
         </div>
         <div class="form-floating">

@@ -1,31 +1,28 @@
 <?php
 
 namespace App\Http\Controllers;
-use DB;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class Controlador_Ubicacion extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    /* public function index()
+    public function index()
     {
-        $producto = DB::table('ubicacion')
-            ->join('almacen', 'producto.almacen_id', '=', 'almacen.id_almacen')
-            ->join('ubicacion', 'producto.ubicacion_id', '=', 'ubicacion.id_ubicacion')
-            ->select('producto.*', 'almacen.nombre_almacen as nombre_almacen', 'ubicacion.pasillo as nombre_pasillo')
-            ->paginate(5);
-        return view('tbproductos', ['producto' => $producto]);
-    } */
+        $ubicacion= DB::table('ubicacion')
+        ->paginate(5);
+        return view('tb_ubicacion', ['ubicacion' => $ubicacion]);
+    }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        return view('/ubicacion_admin');
     }
 
     /**
@@ -35,12 +32,11 @@ class Controlador_Ubicacion extends Controller
     {
         DB::table('ubicacion')->insert([
             "pasillo"=>$req->input('pasillo'),
-            "racks"=>$req->input('racks'),
-            "created_at"=>Carbon::now(),
+            "racks"=>$req->input('rack'),
+            "created_at"=> Carbon::now(),
             "updated_at"=>Carbon::now(),
         ]);
-
-        return redirect('/ubicacion_admin')->with('success', 'La ubicacion se ha guardado correctamente');
+        return redirect('/ubicacion_admin')->with('mensaje','Tu recuerdo se ha guardado en la BD');
     }
 
     /**
@@ -54,24 +50,32 @@ class Controlador_Ubicacion extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id_ubicacion)
     {
-        //
+        $ubicacion = DB::table('ubicacion')->where('id_ubicacion', $id_ubicacion)->first();
+        return view ('editar_ubicacion', ['ubicacion' => $ubicacion]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $req, string $id_ubicacion)
     {
-        //
+        DB::table('ubicacion')->where('id_ubicacion', $id_ubicacion)->update([
+            "pasillo"=>$req->input('pasillo'),
+            "racks"=>$req->input('rack'),
+            "created_at"=> Carbon::now(),
+            "updated_at"=>Carbon::now(),
+        ]);
+        return redirect('/ubicacion_index')->with('mensaje','Tu recuerdo se ha guardado en la BD');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id_ubicacion)
     {
-        //
+        DB::table('ubicacion')->where('id_ubicacion',$id_ubicacion)->delete();
+        return redirect('/ubicacion_index')->with('mensaje',"Recuerdo borrado");
     }
 }

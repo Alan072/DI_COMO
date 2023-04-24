@@ -9,63 +9,56 @@
                         ID
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Nombre del Producto
-                    </th>
-                    <th scope="col" class="px-6 py-3">
                         Descripcion
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Stock
+                        NO. Salida
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Precio
+                        Encargado de la Tarea
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Ubicacion
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Almacen
+                        No. Entrada
                     </th>
-
                     <th scope="col" class="px-6 py-3">
                         Aciones
                     </th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($producto as $item)
+                @foreach ($tarea as $item)
                     <tr
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $item->id_producto }}
+                            {{ $item->id_tarea }}
 
                         </th>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $item->nombre_producto }}
+                            {{ $item->descripcion }}
                         </th>
                         <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $item->descripcion }}
+                            {{ $item->salida_id ? $item->salida_id : '' }}
                         </td>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $item->stock }}
+                            {{ $item->nombre }}
                         </th>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $item->precio }}
+                            Pasillo: {{ $item->pasillo }}
+                            Rack: {{ $item->racks }}
                         </th>
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $item->nombre_pasillo }}
-                        </th>
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $item->nombre_almacen }}
-                        </th>
-
+                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ $item->entrada_id ? $item->entrada_id : '' }}
+                        </td>
                         <td class="flex items-center px-6 py-4 space-x-3">
-                            <a href="{{ route('editar_producto', $item->id_producto) }}"
+                            <a href="{{ route('editar_tarea', $item->id_tarea) }}"
                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
                             <form id="eliminar-producto"
-                                action="{{ route('eliminar_producto', ['id_producto' => $item->id_producto]) }}"
-                                method="POST" class="inline-block">
+                                action="{{ route('eliminar_tarea', ['id_tarea' => $item->id_tarea]) }}" method="POST"
+                                class="inline-block">
                                 @csrf
                                 @method('DELETE')
                                 <button type="button" onclick="confirmarEliminacion()"
@@ -78,7 +71,7 @@
             </tbody>
         </table>
         <div class="flex justify-center">
-            {!! $producto->links() !!}
+            {!! $tarea->links() !!}
         </div>
     </div>
     <script>
@@ -90,12 +83,8 @@
     </script>
     <div class="my-12">
         <a class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mb-4"
-            href="/productos">
+            href="/tareas">
             Regresar
-        </a>
-        <a class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-4"
-            href="{{ route('generar_pdf_productos') }}">
-            Descargar PDF Productos
         </a>
     </div>
 @stop

@@ -3,74 +3,73 @@
 namespace App\Http\Controllers;
 
 use Dompdf\Dompdf;
-use Illuminate\Support\Facades\View;
-
-
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
-class Controlador_Entrada extends Controller
+class Controlador_Salida extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $entrada = DB::table('entrada')
-            ->join('producto', 'entrada.producto_id', '=', 'producto.id_producto')
+        //
+        $salida = DB::table('salida')
+            ->join('producto', 'salida.producto_id', '=', 'producto.id_producto')
             ->join('almacen', 'producto.almacen_id', '=', 'almacen.id_almacen')
             ->join('ubicacion', 'producto.ubicacion_id', '=', 'ubicacion.id_ubicacion')
-            ->select('entrada.*', 'producto.nombre_producto as nombre_producto', 'almacen.nombre_almacen as nombre_almacen', 'ubicacion.pasillo as nombre_pasillo')
+            ->select('salida.*', 'producto.nombre_producto as nombre_producto', 'almacen.nombre_almacen as nombre_almacen', 'ubicacion.pasillo as nombre_pasillo')
             ->paginate(5);
-        return view('tbentrada', ['entrada' => $entrada]);
+            return view('tbsalida', ['salida' => $salida]);
+
     }
 
-    public function generarPDF($id_entrada)
+    public function generarPDF($id_salida)
     {
         // Obtiene la información del ticket
-        $entrada = DB::table('entrada')
-            ->join('producto', 'entrada.producto_id', '=', 'producto.id_producto')
+        $salida = DB::table('salida')
+            ->join('producto', 'salida.producto_id', '=', 'producto.id_producto')
             ->join('almacen', 'producto.almacen_id', '=', 'almacen.id_almacen')
             ->join('ubicacion', 'producto.ubicacion_id', '=', 'ubicacion.id_ubicacion')
-            ->select('entrada.*', 'producto.nombre_producto as nombre_producto', 'almacen.nombre_almacen as nombre_almacen', 'ubicacion.pasillo as nombre_pasillo')
-            ->where('id_entrada', $id_entrada)
+            ->select('salida.*', 'producto.nombre_producto as nombre_producto', 'almacen.nombre_almacen as nombre_almacen', 'ubicacion.pasillo as nombre_pasillo')
+            ->where('id_salida', $id_salida)
             ->first();
 
         // Crea una instancia de Dompdf
         $pdf = new Dompdf();
 
         // Genera el PDF a partir de la vista entrada-pdf
-        $pdf->loadHtml(view('entrada-pdf', compact('entrada'))->render());
+        $pdf->loadHtml(view('salida-pdf', compact('salida'))->render());
 
         $pdf->setPaper('A4', 'portrait');
         $pdf->render();
 
         // Muestra el PDF en la vista
-        return $pdf->stream('Entrada');
+        return $pdf->stream('Salida');
     }
 
-    public function generarEntradas()
+    public function generarSalidas()
     {
         // Obtiene toda la información de la tabla entrada
-        $entradas = DB::table('entrada')
-            ->join('producto', 'entrada.producto_id', '=', 'producto.id_producto')
+        $salidas = DB::table('salida')
+            ->join('producto', 'salida.producto_id', '=', 'producto.id_producto')
             ->join('almacen', 'producto.almacen_id', '=', 'almacen.id_almacen')
             ->join('ubicacion', 'producto.ubicacion_id', '=', 'ubicacion.id_ubicacion')
-            ->select('entrada.*', 'producto.nombre_producto as nombre_producto', 'almacen.nombre_almacen as nombre_almacen', 'ubicacion.pasillo as nombre_pasillo')
+            ->select('salida.*', 'producto.nombre_producto as nombre_producto', 'almacen.nombre_almacen as nombre_almacen', 'ubicacion.pasillo as nombre_pasillo')
             ->get();
 
         // Crea una instancia de Dompdf
         $pdf = new Dompdf();
 
         // Genera el PDF a partir de la vista entrada-pdf
-        $pdf->loadHtml(view('entradas-pdf', compact('entradas'))->render());
+        $pdf->loadHtml(view('salidas-pdf', compact('salidas'))->render());
 
         $pdf->setPaper('A4', 'portrait');
         $pdf->render();
 
         // Muestra el PDF en la vista
-        return $pdf->stream('Entradas');
+        return $pdf->stream('Salidas');
     }
 
     /**
@@ -87,14 +86,14 @@ class Controlador_Entrada extends Controller
     public function store(Request $req)
     {
         //
-        DB::table('entrada')->insert([
-            "producto_id" => $req->input('producto_id'),
-            "cantidad" => $req->input('cantidad'),
-            "created_at" => Carbon::now(),
-            "updated_at" => Carbon::now(),
+        DB::table('salida')->insert([
+            "producto_id"=>$req->input('producto_id'),
+            "cantidad"=>$req->input('cantidad'),
+            "created_at"=>Carbon::now(),
+            "updated_at"=>Carbon::now(),
         ]);
 
-        return redirect('/entrada')->with('success', 'El producto se ha guardado correctamente');
+        return redirect('/salida')->with('success', 'El producto se ha guardado correctamente');
     }
 
     /**

@@ -42,4 +42,9 @@ class ControladorPaginas extends Controller
     {
         return view('almacen_admin');
     }
+
+    public function flogin()
+    {
+        return view('login');
+    }
 }
