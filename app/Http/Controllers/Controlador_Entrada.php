@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Dompdf\Dompdf;
 use Illuminate\Support\Facades\View;
 
-
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;

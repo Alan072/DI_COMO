@@ -40,8 +40,6 @@
                             placeholder="Material sintetico" required>
                     </div>
 
-
-
                     <div>
                         <label for="nombre_producto"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">

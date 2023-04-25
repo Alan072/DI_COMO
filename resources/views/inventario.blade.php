@@ -69,12 +69,14 @@
                 </tr>
             </thead>
             <tbody>
+                @php
+                    $total = 0;
+                @endphp
+            
                 @foreach ($producto as $item)
-                    <tr
-                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{ $item->id_producto }}
-
                         </th>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{ $item->nombre_producto }}
@@ -97,12 +99,17 @@
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             $ {{ $item->precio * $item->stock }}
                         </th>
-
                     </tr>
+                    @php
+                        $total += $item->precio * $item->stock;
+                    @endphp
                 @endforeach
-
+            
+                <tr class="bg-white border-b dark:bg-black-800 dark:border-black-700 hover:bg-black-50 dark:hover:bg-black-600">
+                    <td colspan="7" class="text-right font-bold text-black">Total:</td>
+                    <td class="px-6 py-2 whitespace-nowrap font-bold pr-4 text-black">$ {{ $total }}</td>
+                </tr>  
             </tbody>
-
         </table>
         <div class="flex justify-center">
             {!! $producto->links() !!}
@@ -116,7 +123,7 @@
             Actualizar
         </a>
         <a class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-4"
-            href="{{ route('generar_pdf_productos') }}">
+            href="{{ route('generar_pdf_inventario') }}">
             Descargar PDF Inventario
         </a>
     </div>
