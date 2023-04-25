@@ -94,6 +94,7 @@ Route::get('/cliente',[ControladorPaginas::class,'fcliente_admin']) ->name('clie
 
 /*Inventario */
 Route::get('/inventario/index', [Controlador_Inventario::class, 'index'])->name('mostrar_inventario');
+Route::get('/inventario/filtro', [Controlador_Inventario::class, 'filtro'])->name('mostrar_filtro_inventario');
 Route::get('/generar_pdf_inventario', [Controlador_Inventario::class, 'generarInventario'])->name('generar_pdf_inventario');
 
 #Rutas para tareas

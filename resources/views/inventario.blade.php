@@ -9,6 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Inventario</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
         <style>
             .text-align {
                 width: 100%;
@@ -26,15 +27,52 @@
             .bg-white {
                 margin-top: -80px;
             }
+
+            button[type="submit"] {
+                margin-left: 10px;
+                /* Mueve la lupa a la derecha 10 píxeles */
+                font-size: 18px;
+                /* Aumenta el tamaño de la lupa */
+                background-color: #2600ff;
+                /* Cambia el color de fondo del botón */
+                color: white;
+                /* Cambia el color del texto del botón */
+                border: none;
+                /* Elimina el borde del botón */
+                border-radius: 4px;
+                /* Agrega bordes redondeados al botón */
+                padding: 8px 16px;
+                /* Añade un espacio de relleno al botón */
+            }
         </style>
     </head>
-    
+
     <div class="bg-white rounded-lg shadow p-6" style="width: 50%; margin-left: 20px;">
         <div style="position: relative; z-index: 1;">
             <h1 class="text-blue-500" style="position: absolute; top: 0; left: 0;">Inventario</h1>
         </div>
         <br>
     </div>
+
+    <form method="GET" action="{{ route('mostrar_filtro_inventario') }}">
+        <label for="buscar_por">Buscar por:</label>
+        <select name="buscar_por" id="buscar_por">
+            <option value="nombre" {{ request('buscar_por') == 'nombre' ? 'selected' : '' }}>Nombre</option>
+            <option value="nombre_descripcion" {{ request('buscar_por') == 'nombre_descripcion' ? 'selected' : '' }}>
+                Descripcion</option>
+            <option value="nombre_stock" {{ request('buscar_por') == 'nombre_stock' ? 'selected' : '' }}>Stock</option>
+            <option value="valor_precio" {{ request('buscar_por') == 'valor_precio' ? 'selected' : '' }}>Precio</option>
+            <option value="lugar_pasillo" {{ request('buscar_por') == 'lugar_pasillo' ? 'selected' : '' }}>Ubicacion
+            </option>
+            <option value="lugar_almacen" {{ request('buscar_por') == 'lugar_almacen' ? 'selected' : '' }}>Almacen</option>
+            <option value="precio_total" {{ request('buscar_por') == 'precio_total' ? 'selected' : '' }}>Total</option>
+        </select>
+        <input type="text" name="buscar" id="buscar" value="{{ request('buscar') }}">
+
+        <button type="submit"><i class="fas fa-search"></i></button>
+
+    </form>
+    <br><br>
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
 
@@ -72,9 +110,10 @@
                 @php
                     $total = 0;
                 @endphp
-            
+
                 @foreach ($producto as $item)
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <tr
+                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{ $item->id_producto }}
                         </th>
@@ -104,11 +143,12 @@
                         $total += $item->precio * $item->stock;
                     @endphp
                 @endforeach
-            
-                <tr class="bg-white border-b dark:bg-black-800 dark:border-black-700 hover:bg-black-50 dark:hover:bg-black-600">
+
+                <tr
+                    class="bg-white border-b dark:bg-black-800 dark:border-black-700 hover:bg-black-50 dark:hover:bg-black-600">
                     <td colspan="7" class="text-right font-bold text-black">Total:</td>
                     <td class="px-6 py-2 whitespace-nowrap font-bold pr-4 text-black">$ {{ $total }}</td>
-                </tr>  
+                </tr>
             </tbody>
         </table>
         <div class="flex justify-center">
