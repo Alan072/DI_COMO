@@ -1,6 +1,6 @@
 @extends('plantilla')
 @section('contenido')
-<div class="w-full max-w-xl p-4 bg-white mx-auto" style="max-width: 80%;">
+<div class="w-full max-w-xl p-4 bg-white mx-auto" style="max-width: 80%; margin-top: -60px;">
     <div class="grid gap-6 mb-6 md:grid-cols-2">
         <form method="post" action="{{ route('update_tarea', $tarea->id_tarea) }}">
             @csrf
@@ -50,7 +50,7 @@
                     <option value="" disabled selected>Selecciona el Empleado</option>
                     <?php
                     // Realizar la conexión a la base de datos
-                    $conexion = mysqli_connect("localhost:3307", "root", "", "laravel");
+                    $conexion = mysqli_connect("localhost:3306", "root", "", "laravel");
                 
                     // Verificar la conexión
                     if (!$conexion) {
@@ -66,7 +66,7 @@
                     if (mysqli_num_rows($resultado) > 0) {
                         // Iterar sobre los resultados y crear los elementos de la lista desplegable
                         while ($fila = mysqli_fetch_assoc($resultado)) {
-                        echo "<option value='" . $fila["id_usuario"] . "'>" . $fila["nombre"] . "'>" . $fila["apellido_paterno"] . "'>" . $fila["apellido_materno"] . "</option>";
+                        echo "<option value='" . $fila["id_usuario"] . "'>" . $fila["nombre"] . " " . $fila["apellido_paterno"] . " " . $fila["apellido_materno"] . "</option>";
                         }
                     } else {
                         // Si la consulta no devolvió resultados, mostrar un mensaje de error
