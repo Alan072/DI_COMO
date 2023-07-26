@@ -9,6 +9,7 @@ use App\Http\Controllers\Controlador_Personal;
 use App\Http\Controllers\Controlador_Ubicacion;
 use App\Http\Controllers\Controlador_Almacen;
 use App\Http\Controllers\Controlador_Tareas;
+use App\Http\Controllers\Controlador_montacargas;
 use App\Http\Controllers\LoginController;
 
 
@@ -97,4 +98,9 @@ Route::delete('/tarea/{id_tarea}',[Controlador_Tareas::class, 'destroy'])->name(
 Route::get('/',[ControladorPaginas::class,'flogin']) ->name('Jlogin');
 Route::post('/como', [LoginController::class, 'login']);
 
-Route::get('/tarea_montacargas', function () {return view('vista_montacargas');});
+
+
+/* Montacargas */
+Route::get('/tarea_montacargas', [Controlador_montacargas::class, 'index'])->name('montacargas_index');
+
+
