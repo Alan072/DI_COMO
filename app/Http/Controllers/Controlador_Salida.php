@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use DB;
+
 use Dompdf\Dompdf;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class Controlador_Salida extends Controller
@@ -24,9 +25,8 @@ class Controlador_Salida extends Controller
 
     }
 
-    public function generar_salida($id_salida)
+    public function generarPDF($id_salida)
     {
-
         // Obtiene la información del ticket
         $salida = DB::table('salida')
             ->join('producto', 'salida.producto_id', '=', 'producto.id_producto')
@@ -36,21 +36,40 @@ class Controlador_Salida extends Controller
             ->where('id_salida', $id_salida)
             ->first();
 
-        // Genera el HTML para el PDF
-        $html = '<h1>Información de la Salida</h1>';
-        $html .= '<p>ID: ' . $salida->id_salida . '</p>';
-        $html .= '<p>Producto: ' . $salida->nombre_producto . '</p>';
-        $html .= '<p>Cantidad: ' . $salida->cantidad . '</p>';
-        
         // Crea una instancia de Dompdf
-        $dompdf = new Dompdf();
-        // Genera el PDF a partir del HTML
-        $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'portrait');
-        $dompdf->render();
+        $pdf = new Dompdf();
 
-        // Descarga el PDF en el navegador
-        $dompdf->stream('Reporte_salida.pdf');
+        // Genera el PDF a partir de la vista entrada-pdf
+        $pdf->loadHtml(view('salida-pdf', compact('salida'))->render());
+
+        $pdf->setPaper('A4', 'portrait');
+        $pdf->render();
+
+        // Muestra el PDF en la vista
+        return $pdf->stream('Salida');
+    }
+
+    public function generarSalidas()
+    {
+        // Obtiene toda la información de la tabla entrada
+        $salidas = DB::table('salida')
+            ->join('producto', 'salida.producto_id', '=', 'producto.id_producto')
+            ->join('almacen', 'producto.almacen_id', '=', 'almacen.id_almacen')
+            ->join('ubicacion', 'producto.ubicacion_id', '=', 'ubicacion.id_ubicacion')
+            ->select('salida.*', 'producto.nombre_producto as nombre_producto', 'almacen.nombre_almacen as nombre_almacen', 'ubicacion.pasillo as nombre_pasillo')
+            ->get();
+
+        // Crea una instancia de Dompdf
+        $pdf = new Dompdf();
+
+        // Genera el PDF a partir de la vista entrada-pdf
+        $pdf->loadHtml(view('salidas-pdf', compact('salidas'))->render());
+
+        $pdf->setPaper('A4', 'portrait');
+        $pdf->render();
+
+        // Muestra el PDF en la vista
+        return $pdf->stream('Salidas');
     }
 
     /**

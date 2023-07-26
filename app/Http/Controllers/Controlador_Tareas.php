@@ -14,12 +14,11 @@ class Controlador_Tareas extends Controller
     public function index()
     {
         $tarea = DB::table('tarea')
-        ->join('tipo_usuario', 'tarea.usuario_id', '=', 'tipo_usuario.id_usuario')
-        ->join('ubicacion', 'tarea.ubicacion_id', '=', 'ubicacion.id_ubicacion')
-        ->select('tarea.id_tarea', 'tarea.descripcion', 'tarea.salida_id','tarea.entrada_id', 'tipo_usuario.nombre', 'ubicacion.pasillo', 'ubicacion.racks')
-        ->paginate(5);
+            ->join('tipo_usuario', 'tarea.usuario_id', '=', 'tipo_usuario.id_usuario')
+            ->join('ubicacion', 'tarea.ubicacion_id', '=', 'ubicacion.id_ubicacion')
+            ->select('tarea.id_tarea', 'tarea.descripcion', 'tarea.salida_id', 'tarea.entrada_id', 'tipo_usuario.nombre', 'ubicacion.pasillo', 'ubicacion.racks')
+            ->paginate(5);
         return view('tbtareas', ['tarea' => $tarea]);
-
     }
 
     /**
@@ -33,7 +32,7 @@ class Controlador_Tareas extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $req)
+    /*   public function store(Request $req)
     {
         DB::table('tarea')->insert([
             "descripcion"=>$req->input('descripcion'),
@@ -45,6 +44,28 @@ class Controlador_Tareas extends Controller
             "updated_at"=>Carbon::now(),
         ]);
         return redirect('/tareas')->with('mensaje','Tu recuerdo se ha guardado en la BD');
+    } */
+    public function store(Request $req)
+    {
+        /* dd($req->all()); */
+        $data = [
+            "descripcion" => $req->input('descripcion'),
+            "usuario_id" => $req->input('idusuario'),
+            "ubicacion_id" => $req->input('idubicacion'),
+            "created_at" => Carbon::now(),
+            "updated_at" => Carbon::now(),
+        ];
+
+        if (isset($req->idsalida)) {
+            $data["salida_id"] = $req->input('idsalida');
+        }
+
+        if (isset($req->identrada)) {
+            $data["entrada_id"] = $req->input('identrada');
+        }
+
+        DB::table('tarea')->insert($data);
+        return redirect('/tareas')->with('mensaje', 'Tu recuerdo se ha guardado en la BD');
     }
 
     /**
@@ -62,7 +83,7 @@ class Controlador_Tareas extends Controller
     {
         //
         $tarea = DB::table('tarea')->where('id_tarea', $id_tarea)->first();
-        return view ('editar_tarea', ['tarea' => $tarea]);
+        return view('editar_tarea', ['tarea' => $tarea]);
     }
 
     /**
@@ -72,16 +93,14 @@ class Controlador_Tareas extends Controller
     {
         //
         DB::table('tarea')->where('id_tarea', $id_tarea)->update([
-            "descripcion"=>$req->input('descripcion'),
-            "salida_id"=>$req->input('idsalida'),
-            "usuario_id"=>$req->input('idusuario'),
-            "ubicacion_id"=>$req->input('idubicacion'),
-            "entrada_id"=>$req->input('identrada'),
-            "updated_at"=>Carbon::now(),
+            "descripcion" => $req->input('descripcion'),
+            "salida_id" => $req->input('idsalida'),
+            "usuario_id" => $req->input('idusuario'),
+            "ubicacion_id" => $req->input('idubicacion'),
+            "entrada_id" => $req->input('identrada'),
+            "updated_at" => Carbon::now(),
         ]);
-        return redirect('/tarea_index')->with('mensaje','Tu recuerdo se ha actualizado');
-
-
+        return redirect('/tarea_index')->with('mensaje', 'Tu recuerdo se ha actualizado');
     }
 
     /**
@@ -90,7 +109,7 @@ class Controlador_Tareas extends Controller
     public function destroy(string $id_tarea)
     {
         //
-        DB::table('tarea')->where('id_tarea',$id_tarea)->delete();
-        return redirect('/tarea_index')->with('mensaje',"Recuerdo borrado");
+        DB::table('tarea')->where('id_tarea', $id_tarea)->delete();
+        return redirect('/tarea_index')->with('mensaje', "Recuerdo borrado");
     }
 }

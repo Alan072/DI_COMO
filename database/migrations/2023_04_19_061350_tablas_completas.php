@@ -3,15 +3,31 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
     /**
      * Run the migrations.
      */
+
     public function up(): void
-    {
-        //
+    {   
+        
+        // Deshabilitar temporalmente las restricciones de clave foránea
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
+        // Eliminar las tablas existentes si existen
+        Schema::dropIfExists('tarea');
+        Schema::dropIfExists('salida');
+        Schema::dropIfExists('tipo_usuario');
+        Schema::dropIfExists('entrada');
+        Schema::dropIfExists('producto');
+        Schema::dropIfExists('almacen');
+        Schema::dropIfExists('rol_desempena');
+        Schema::dropIfExists('ubicacion');
+      
+
         Schema::create('ubicacion', function (Blueprint $table) {
             $table->increments('id_ubicacion');
             $table->string('pasillo');
@@ -34,7 +50,7 @@ return new class extends Migration
             $table->increments('id_producto');
             $table->string('nombre_producto');
             $table->text('descripcion');
-            $table->integer('stock');
+            $table->integer('stock')->unsigned()->default(1);
             $table->float('precio');
             $table->integer('ubicacion_id')->unsigned();
             $table->integer('almacen_id')->unsigned();
@@ -80,24 +96,23 @@ return new class extends Migration
         Schema::create('tarea', function (Blueprint $table) {
             $table->increments('id_tarea');
             $table->text('descripcion');
-            $table->integer('salida_id')->unsigned();
+            $table->integer('salida_id')->unsigned()->default(1);
             $table->integer('usuario_id')->unsigned();
             $table->integer('ubicacion_id')->unsigned();
-            $table->integer('entrada_id')->unsigned();
+            $table->integer('entrada_id')->unsigned()->default(1);
             $table->foreign('salida_id')->references('id_salida')->on('salida')->onDelete('cascade');
             $table->foreign('ubicacion_id')->references('id_ubicacion')->on('ubicacion')->onDelete('cascade');
             $table->foreign('entrada_id')->references('id_entrada')->on('entrada')->onDelete('cascade');
             $table->foreign('usuario_id')->references('id_usuario')->on('tipo_usuario')->onDelete('cascade');
             $table->timestamps();
         });
-
+        
+        // Habilitar temporalmente las restricciones de clave foránea
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
-        //
-    }
+    
 };

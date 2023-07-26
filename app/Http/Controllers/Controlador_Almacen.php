@@ -53,7 +53,6 @@ class Controlador_Almacen extends Controller
      */
     public function edit(string $id_almacen)
     {
-        //
         $almacen = DB::table('almacen')->where('id_almacen', $id_almacen)->first();
         return view ('editar_almacen', ['almacen' => $almacen]);
     }
@@ -63,7 +62,6 @@ class Controlador_Almacen extends Controller
      */
     public function update(Request $req, string $id_almacen)
     {
-        //
         DB::table('almacen')->where('id_almacen', $id_almacen)->update([
             "nombre_almacen"=>$req->input('nombrealmacen'),
             "created_at"=> Carbon::now(),
@@ -77,7 +75,6 @@ class Controlador_Almacen extends Controller
      */
     public function destroy(string $id_almacen)
     {
-        //
         DB::table('almacen')->where('id_almacen',$id_almacen)->delete();
         return redirect('/almacen_index')->with('mensaje',"Recuerdo borrado");
     }
