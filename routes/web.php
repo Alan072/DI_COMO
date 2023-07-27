@@ -115,5 +115,9 @@ Route::post('/como', [LoginController::class, 'login']);
 
 /* Montacargas */
 Route::get('/tarea_montacargas', [Controlador_montacargas::class, 'index'])->name('montacargas_index');
+Route::put('/tarea_montacargas/{id_tarea}',[Controlador_montacargas::class,'update'])->name('update_tareaM');
+Route::get('/tarea_montacargas/{id_tarea}/edit', [Controlador_montacargas::class, 'edit'])->name('editar_tareaM');
+Route::get('/tarea_montacargas/{id_tarea}/show', [Controlador_montacargas::class, 'show'])->name('show_tareaM');
+Route::post('/marcar_como_completado', [Controlador_montacargas::class, 'marcarComoCompletado']);
 
 

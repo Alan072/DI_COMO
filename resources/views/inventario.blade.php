@@ -95,10 +95,10 @@
                         Precio
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Ubicacion
+                        Almacen
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Almacen
+                        Pasillo
                     </th>
 
                     <th scope="col" class="px-6 py-3">
@@ -130,10 +130,10 @@
                             {{ $item->precio }}
                         </th>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $item->nombre_pasillo }}
+                            {{ $item->nombre_almacen }}
                         </th>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $item->nombre_almacen }}
+                            {{ $item->nombre_pasillo }}
                         </th>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             $ {{ $item->precio * $item->stock }}

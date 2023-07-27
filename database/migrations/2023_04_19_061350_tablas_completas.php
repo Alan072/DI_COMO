@@ -50,7 +50,7 @@ return new class extends Migration
             $table->increments('id_producto');
             $table->string('nombre_producto');
             $table->text('descripcion');
-            $table->integer('stock')->unsigned()->default(1);
+            $table->integer('stock')->unsigned()->default(0);
             $table->float('precio');
             $table->integer('ubicacion_id')->unsigned();
             $table->integer('almacen_id')->unsigned();
@@ -96,14 +96,15 @@ return new class extends Migration
         Schema::create('tarea', function (Blueprint $table) {
             $table->increments('id_tarea');
             $table->text('descripcion');
-            $table->integer('salida_id')->unsigned()->default(1);
+            $table->integer('salida_id')->unsigned();
             $table->integer('usuario_id')->unsigned();
             $table->integer('ubicacion_id')->unsigned();
-            $table->integer('entrada_id')->unsigned()->default(1);
+            $table->integer('entrada_id')->unsigned();
             $table->foreign('salida_id')->references('id_salida')->on('salida')->onDelete('cascade');
             $table->foreign('ubicacion_id')->references('id_ubicacion')->on('ubicacion')->onDelete('cascade');
             $table->foreign('entrada_id')->references('id_entrada')->on('entrada')->onDelete('cascade');
             $table->foreign('usuario_id')->references('id_usuario')->on('tipo_usuario')->onDelete('cascade');
+            $table->string('status_tarea')->default('No completado');
             $table->timestamps();
         });
         

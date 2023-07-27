@@ -24,7 +24,7 @@ class LoginController extends Controller
 
         if ($empleado && $password == $empleado->contrasena) {
             if ($empleado->rol_desempena == 1) {
-                return view('admin');
+                return redirect('/home');
             } elseif ($empleado->rol_desempena == 2) {
                 return redirect('/tarea_montacargas');
             }
