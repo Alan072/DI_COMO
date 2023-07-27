@@ -23,6 +23,18 @@ class Controlador_montacargas extends Controller
         return view('vista_montacargas', ['tarea' => $tarea]);
     }
 
+    public function index_completas()
+    {
+            $tarea = DB::table('tarea')
+            ->join('tipo_usuario', 'tarea.usuario_id', '=', 'tipo_usuario.id_usuario')
+            ->join('ubicacion', 'tarea.ubicacion_id', '=', 'ubicacion.id_ubicacion')
+            ->select('tarea.id_tarea','tarea.status_tarea', 'tarea.descripcion', 'tarea.salida_id', 'tarea.entrada_id', 'tipo_usuario.nombre', 'ubicacion.pasillo', 'ubicacion.racks')
+            ->where('tarea.status_tarea', 'Completado') // Agrega esta condición para filtrar por status_tarea
+            ->get();
+
+        return view('tareas_completas', ['tarea' => $tarea]);
+    }
+
     public function marcarComoCompletado(Request $request)
     {
         $tareaId = $request->input('tareaId');
@@ -77,7 +89,7 @@ class Controlador_montacargas extends Controller
         return view('tareas_montacargas', ['tareaDetalle' => $tareaDetalle]);
     } else {
         // Si no se encontró la tarea, redirigir o mostrar una vista de error
-        return redirect()->route('show_tareaM')->with('error', 'Tarea no encontrada');
+        return redirect()->route('montacargas_index')->with('error', 'Tarea no encontrada');
     }
 }
 
