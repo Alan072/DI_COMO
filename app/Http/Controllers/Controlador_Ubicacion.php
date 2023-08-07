@@ -36,7 +36,7 @@ class Controlador_Ubicacion extends Controller
             "created_at"=> Carbon::now(),
             "updated_at"=>Carbon::now(),
         ]);
-        return redirect('/ubicacion_index')->with('mensaje','Tu recuerdo se ha guardado en la BD');
+        return redirect('/ubicacion_admin')->with('mensaje','Tu recuerdo se ha guardado en la BD');
     }
 
     /**
@@ -61,7 +61,7 @@ class Controlador_Ubicacion extends Controller
      */
     public function update(Request $req, string $id_ubicacion)
     {
-        DB::table('ubicacion')->update([
+        DB::table('ubicacion')->where('id_ubicacion', $id_ubicacion)->update([
             "pasillo"=>$req->input('pasillo'),
             "racks"=>$req->input('rack'),
             "created_at"=> Carbon::now(),

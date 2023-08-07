@@ -7,12 +7,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Home</title>
+    </head> 
     <style>
     .text-align {
         width: 100%; /* Establece el ancho del contenedor */
         margin: 0 auto; /* Establece los márgenes izquierdo y derecho como "auto" para centrar el contenedor */
         text-align: center; /* Centra el texto dentro del contenedor */
-        padding: 220px;
+        padding: 50px;
     } 
     h1 {
 		font-size: 32px;
